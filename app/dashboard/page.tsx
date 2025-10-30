@@ -6,6 +6,7 @@ import { db } from "@/lib/firebase";
 import { useAppSelector } from "@/store/hooks";
 import DoctorDashboard from "@/components/DoctorDashboard";
 import PatientDashboard from "@/components/PatientDashboard";
+import { Dashboard } from "@/components/dashboard/dashboard";
 
 export default function DashboardPage() {
   const { user } = useAppSelector((state) => state.auth);
