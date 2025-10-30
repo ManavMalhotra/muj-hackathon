@@ -5,7 +5,7 @@ import { ref, get } from "firebase/database";
 import { db } from "@/lib/firebase";
 import { useAppSelector } from "@/store/hooks";
 import DoctorDashboard from "@/components/DoctorDashboard";
-import PatientDashboard from "@/components/PatientDashboard";
+import { Dashboard } from "@/components/dashboard/dashboard";
 
 export default function DashboardPage() {
   const { user } = useAppSelector((state) => state.auth);
@@ -49,6 +49,6 @@ export default function DashboardPage() {
   return user.role === "doctor" ? (
     <DoctorDashboard patients={patientsList} />
   ) : (
-    <PatientDashboard patientId={user.patientDataId} />
+    <Dashboard  />
   );
 }
