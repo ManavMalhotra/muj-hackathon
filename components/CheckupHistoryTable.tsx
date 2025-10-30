@@ -40,6 +40,29 @@ const StatusBadge = ({ status }: { status: string }) => {
   );
 };
 
+// Download Base64 as PDF file
+const downloadBase64AsPDF = (base64Data: string, filename: string) => {
+  try {
+    const byteString = atob(base64Data);
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([ab], { type: "application/pdf" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  } catch (err) {
+    alert("Failed to download PDF.");
+  }
+};
+
 const CheckupHistoryTable: React.FC<CheckupHistoryTableProps> = ({
   reports,
 }) => {
@@ -92,20 +115,17 @@ const CheckupHistoryTable: React.FC<CheckupHistoryTableProps> = ({
                     {report.summary}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    <a
-                      href={`/${report.filePath}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <button
+                      onClick={() =>
+                        downloadBase64AsPDF(
+                          report.pdfData,
+                          `${report.title.replace(/\s+/g, "_")}.pdf`
+                        )
+                      }
                       className="text-indigo-600 hover:text-indigo-900"
                     >
                       View
-                    </a>
-                    <a
-                      href="#"
-                      className="ml-4 text-red-600 hover:text-red-900"
-                    >
-                      Delete
-                    </a>
+                    </button>
                   </td>
                 </tr>
               ))}
