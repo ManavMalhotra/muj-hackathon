@@ -49,6 +49,6 @@ export default function DashboardPage() {
   return user.role === "doctor" ? (
     <DoctorDashboard patients={patientsList} />
   ) : (
-    <PatientDashboard patient={patientData} />
+    <PatientDashboard patientId={user.patientDataId} />
   );
 }
