@@ -7,7 +7,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { handleGoogleSignIn } from "@/lib/authService";
 
-export default function SignUpForm() {
+export default function RegisterForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -16,7 +16,7 @@ export default function SignUpForm() {
   const [role, setRole] = useState<"patient" | "doctor">("patient");
   const router = useRouter();
 
-  // Email/password signup
+  // Email/password signup — NO DB writes here
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isLoading) return;
@@ -25,7 +25,7 @@ export default function SignUpForm() {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      // Redirect to /complete-profile after successful signup
+      // move to complete-profile where we will write DB entries
       router.push("/complete-profile");
     } catch (err: any) {
       setError(err.message || "Failed to register");
@@ -33,13 +33,14 @@ export default function SignUpForm() {
     }
   };
 
+  // Google sign in — do not write DB here; complete-profile will handle DB writes
   const handleGoogleRegister = async () => {
     if (isGoogleLoading) return;
     setIsGoogleLoading(true);
     setError(null);
 
     try {
-      await handleGoogleSignIn(router);
+      await handleGoogleSignIn(router); // should only sign-in
       router.push("/complete-profile");
     } catch (err: any) {
       setError(err.message || "Google sign-in failed");
@@ -51,9 +52,7 @@ export default function SignUpForm() {
     <div className="rounded-lg border bg-white p-8 shadow-sm">
       <div className="text-left">
         <h1 className="text-3xl font-semibold text-gray-900">Register</h1>
-        <p className="mt-1 mb-6 text-gray-500">
-          Start your health journey today
-        </p>
+        <p className="mt-1 mb-6 text-gray-500">Start your health journey today</p>
       </div>
 
       {/* Role selector */}
@@ -147,8 +146,9 @@ export default function SignUpForm() {
         disabled={isLoading || isGoogleLoading}
         className="w-full flex justify-center items-center gap-2 rounded-md border border-gray-300 bg-white py-3 px-4 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50"
       >
-        {/* Google Icon SVG */}
         <svg className="h-5 w-5" viewBox="0 0 48 48">
+          {" "}
+          {/* Google Icon SVG */}
           <path
             fill="#EA4335"
             d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"
