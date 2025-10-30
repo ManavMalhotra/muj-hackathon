@@ -3,7 +3,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
-import cardiosense_logo from "@/app/img/cardiosense_logo.svg"
+import cardiosense_logo from "@/app/img/cardiosense_logo.svg";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,12 +19,14 @@ import {
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
-// FIX 1: Bolder, more prominent logo bars
 const CardioSenseLogo = () => (
-  <Image src={cardiosense_logo} alt="CardioSense logo" className="w-50 m-2 ms-0 rounded" />
+  <Image
+    src={cardiosense_logo}
+    alt="CardioSense logo"
+    className="w-50 m-2 ms-0 rounded"
+  />
 );
 
-// FIX 2: More realistic notification data structure
 const mockNotifications = [
   {
     id: 1,
@@ -50,12 +52,10 @@ const DashboardHeader = () => {
   const notificationCount = mockNotifications.length;
 
   return (
-    // FIX 3: Proper header container styling for a clean, distinct bar
     <header className="bg-white w-full flex items-center justify-between px-6 py-3 border-b border-gray-200">
-      <CardioSenseLogo />
+      LOGO
 
       <div className="flex items-center gap-4">
-        {/* FIX 4: Correct border-radius on inputs and buttons */}
         <div className="relative w-72">
           <MagnifyingGlassIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
           <Input
@@ -91,7 +91,6 @@ const DashboardHeader = () => {
             </Button>
           </DropdownMenuTrigger>
 
-          {/* This is the key fix: making the content wide and styling the items */}
           <DropdownMenuContent
             align="end"
             className="w-96 p-2 bg-white rounded-lg shadow-lg"

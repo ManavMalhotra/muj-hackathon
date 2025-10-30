@@ -19,11 +19,9 @@ export default function DashboardPage() {
     async function fetchData() {
       try {
         if (user.role === "patient" && user.patientDataId) {
-          // 🔹 Load this patient's data
           const snap = await get(ref(db, `patients/${user.patientDataId}`));
           if (snap.exists()) setPatientData(snap.val());
         } else if (user.role === "doctor") {
-          // 🔹 Load all patients for doctors
           const snap = await get(ref(db, "patients"));
           if (snap.exists()) {
             const patients = Object.entries(snap.val()).map(([id, data]) => ({
@@ -45,7 +43,6 @@ export default function DashboardPage() {
 
   if (!user) return <div>No user found. Please login again.</div>;
 
-  // 🔀 Conditional render
   return user.role === "doctor" ? (
     <DoctorDashboard patients={patientsList} />
   ) : (

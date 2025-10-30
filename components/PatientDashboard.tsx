@@ -64,7 +64,7 @@ export default function PatientDashboard({
 
   return (
     <div className="flex flex-col gap-6">
-      {/* 🔴 Live Section */}
+      {/* Live Section */}
       <div className="bg-white rounded-lg shadow p-6">
         <h2 className="text-lg font-semibold text-red-600 mb-4 flex items-center gap-2">
           🔴 Live{" "}
@@ -80,8 +80,8 @@ export default function PatientDashboard({
         </div>
       </div>
 
-      {/* 🟣 Health Score */}
-      <div className="bg-white rounded-lg shadow p-6">
+      {/* Health Score */}
+      {/* <div className="bg-white rounded-lg shadow p-6">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold text-purple-600">
             {patient.reports?.length > 0 ? "96.28%" : "--"}{" "}
@@ -89,9 +89,9 @@ export default function PatientDashboard({
           </h2>
         </div>
         <HealthScoreGraph />
-      </div>
+      </div> */}
 
-      {/* 📋 Checkup History */}
+      {/* Checkup History */}
       <div className="bg-white rounded-lg shadow p-6">
         <h2 className="text-lg font-semibold mb-4">Checkup History</h2>
         {patient.reports && patient.reports.length > 0 ? (
